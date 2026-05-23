@@ -1,17 +1,10 @@
-<#
-.SYNOPSIS
-    Shows recent failed login attempts (Event ID 4625) for incident response.
-.DESCRIPTION
-    Useful for detecting brute-force attacks on hospital domain controllers or critical servers.
-.EXAMPLE
-    .\Check-FailedLogins.ps1 -Count 20
-#>
+# Windows Incident Response Toolkit for Hospitals
 
-param(
-    [int]$Count = 10
-)
+PowerShell scripts to quickly investigate security incidents on Windows Servers (Domain Controllers, EHR servers, PACS).
 
-Write-Host "Last $Count failed logins (Event ID 4625):" -ForegroundColor Cyan
-Get-EventLog -LogName Security -InstanceId 4625 -Newest $Count | 
-    Select-Object TimeGenerated, @{Name='User';Expression={$_.ReplacementStrings[5]}}, @{Name='SourceIP';Expression={$_.ReplacementStrings[18]}} |
-    Format-Table -AutoSize
+## 🚀 Scripts
+- `Check-FailedLogins.ps1` – Shows recent brute-force attempts with source IP.
+
+## 📖 Usage
+```powershell
+.\Check-FailedLogins.ps1 -Count 20
